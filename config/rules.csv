@@ -1,0 +1,31 @@
+key,value,note
+prompt_version,1.1,"Written into every score row. 1.1: the model extracts job facts, code decides relevance."
+top_min,70,"TOP needs at least this total (0-100) and M1 and M2 met, no blocking flags."
+maybe_min,50,"Total from this value up to top_min is MAYBE. Starting values, not calibrated."
+near_miss_min,70,LOW candidates with a total at or above this value are listed as 'near miss' in the digest.
+m2_min_months,24,Relevant months required for M2.
+c1_l1_months,12,C1 level 1 from this many months.
+c1_l2_months,24,C1 level 2 from this many months.
+c1_l3_months,48,C1 level 3 from this many months.
+part_time_factor,0.5,"Multiplier for part_time, internship and freelance jobs."
+year_only_policy,min_max,"Year-only dates: min = start in December, end in January; max = start in January, end in December."
+min_chars,300,"Fewer extracted characters than this = unreadable file, goes to ATTENTION."
+max_chars,20000,Longer text is truncated before the model call.
+reminder_hours,24,TOP candidates without an HR decision for this many hours get a reminder.
+blocking_flags,"possible_injection,unreadable_text,multiple_candidates,language_unclear,evidence_unverified",Any of these routes the candidate to ATTENTION.
+injection_patterns,"ignore (all |any )?(the )?(previous|prior|above|earlier) (instructions|prompts?|rules)|system prompt|disregard (the )?(rubric|instructions|rules)|note to (the )?(ai|evaluator|assistant|screener|reviewer)|you are (now )?(an? )?(ai|assistant|evaluator|language model)|(score|rate|rank|mark)[^.]{0,30}(this candidate|me)[^.]{0,30}(100|maximum|top|highest|10/10)|do not (flag|mention|reveal)|reveal (your|the) (prompt|instructions)","Case-insensitive regular expression. A match sets the possible_injection flag in code, independent of the model."
+relevant_role_definition,Customer-facing technical support or customer success work with users of software or IT products.,NOT USED since prompt 1.1. Relevance is decided by code from the relevant_* keys below.
+model_filter,claude-haiku-5-5,Filter model.
+model_scorer,claude-sonnet-5-5,Scoring model.
+price_filter_in_per_mtok,0.10,"USD per million input tokens. Copied from the Adria project, verify against the console."
+price_filter_out_per_mtok,0.50,USD per million output tokens.
+price_scorer_in_per_mtok,2.00,USD per million input tokens.
+price_scorer_out_per_mtok,10.00,USD per million output tokens.
+timezone,Europe/Zagreb,Digest and reminders.
+digest_day_time,Monday 09:00,Weekly digest.
+ack_enabled,yes,Template-only acknowledgment of receipt to the candidate. No model text.
+ack_template,"Thank you for applying to Nordlane Software. We have received your resume. Every application is read by a person on our HR team, and we will contact you directly about next steps.",Never mentions a score or a result.
+telegram_chat_id,YOUR_TELEGRAM_CHAT_ID,HR manager chat id (taken from the first message to the bot).
+relevant_requires_customer_facing,yes,A job counts toward experience only if the person dealt with customers or end users. yes or no.
+relevant_requires_technical,yes,A job counts only if the resume states technical problem solving in it. yes or no.
+relevant_product_types,"software_it,telecom","Comma list of software_it, telecom, other. Jobs with unknown product are counted but marked unconfirmed."

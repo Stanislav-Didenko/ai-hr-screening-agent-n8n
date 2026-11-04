@@ -1,0 +1,9 @@
+key,value
+vacancy_id,NS-CS-T2
+title,Customer Support Specialist (Tier 2)
+company,"Nordlane Software (fictional B2B SaaS company, dispatch platform for logistics)"
+format,"Full-time, remote. Working language: English."
+team,"Support team of 8, reports to the Head of Support."
+responsibilities,"Handle second-line tickets: customer integrations via REST API, webhooks, sync failures. Reproduce problems, collect logs, hand bugs to engineers with clear reproduction steps. Write and update knowledge base articles and reply macros. Answer customers in English and keep the SLA: first reply within 2 working hours."
+config_version,1
+status,open
