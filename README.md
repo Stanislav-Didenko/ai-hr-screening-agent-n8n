@@ -137,11 +137,21 @@ The fixes were checked on the failing cases one by one; the full 3-run suite was
 
 ## Screenshots
 
+**HR's view in Telegram.** A `TOP` card: score, must-haves and the quote behind every point, with the four HR buttons:
+
+![TOP card](docs/screenshots/01-telegram-top-card.jpg)
+
+A scanned PDF with no text layer is not lost: HR gets the original file with the same buttons, at zero model cost:
+
+![Scanned PDF](docs/screenshots/02-telegram-scan-pdf.jpg)
+
+**Scorecard** after 3 test runs (144 results; expected vs actual tier, flags, cost, months counted):
+
+![Scorecard](docs/screenshots/06-scorecard.jpg)
+
 **n8n**: the main flows on one canvas. A: new resume, B: records and HR card, C: HR buttons. Not in the frame: the hourly check, the weekly digest, error alerts and the test harness.
 
 ![Full canvas](docs/screenshots/09-n8n-full-canvas.jpg)
-
-Telegram cards (TOP, ATTENTION, status kept, weekly digest), the *Candidates* sheet and the test scorecard will be added here after the demo run.
 
 ## Limits
 
@@ -150,6 +160,7 @@ Telegram cards (TOP, ATTENTION, status kept, weekly digest), the *Candidates* sh
 - **The demo has no live mailbox or CRM connected**; it takes resumes through a form. Connecting one is an intake change only (see below).
 - **Error alerts go to the HR chat.** In production they belong in a separate channel for whoever maintains the workflow.
 - **Manual status edits in the sheet have no timestamp.** `hr_decided_at` is set only by buttons. An Apps Script `onEdit` trigger would close this gap.
+- **Parallel bursts can lose a row in Google Sheets.** When 12 resumes were sent at the same moment, 2 of them were processed and their Telegram cards were sent, but their rows were overwritten by concurrent appends to the *Candidates* tab. One at a time (the test harness waits 15 s between cases) nothing was lost in 144 runs. For production volume: a database instead of Sheets, or an atomic append through the Sheets API with a queue in front.
 - **Contact details are extracted, not validated.**
 - **The bias check is small**: 3 pairs, 3 runs each. It shows the agent is not obviously swayed by a name or personal details on these resumes; it does not prove the absence of bias.
 - **Thresholds (50 / 70) are starting values**, to be calibrated on real decisions. The *Disagree* log is there for that.
